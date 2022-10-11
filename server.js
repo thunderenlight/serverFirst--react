@@ -1,23 +1,17 @@
 require("dotenv").config();
 const express = require("express")
-
 const app = express()
-
 const mongoose = require("mongoose")
+const authRoute = require("./routes/auth")
 
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.get("/", (req,res) => {
+app.get("/api", (req,res) => {
     res.send("<h3>Backend First FullStack React</h3>");
 });
-app.post("/double", (req, res) => {
-    if(req.body.double){
-        return res.json({double: req.body.double});
-    } else {
-        return res.status(400).json({ error: "No double provided" })
-    }
-});
+
+app.use("/api/auth", authRoute)
 
 mongoose
     .connect(process.env.MONGO_URI)
