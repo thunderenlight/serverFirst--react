@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser")
 
 // import routes
 const authRoute = require("./routes/auth")
+const toDosRoute = require("./routes/todos")
 
 const app = express()
 app.use(express.json());
@@ -17,7 +18,9 @@ app.get("/api", (req,res) => {
     res.send("<h3>Backend First FullStack React</h3>");
 });
 
-app.use("/api/auth", authRoute)
+app.use("/api/auth", authRoute);
+app.use("/api/todos", toDosRoute);
+
 
 mongoose
     .connect(process.env.MONGO_URI)
