@@ -1,8 +1,13 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useGlobalContext } from "../context/GlobalContext"
 
 
 const Header = () => {
+    const { user, logout } = useGlobalContext();
+    const { pathname } = useLocation();
+
+
     return (
         <div className="main-header">
             <div className="main-header__inner">
@@ -12,7 +17,20 @@ const Header = () => {
                     </Link>
                 </div>
                     <div className="main-header__right">
-                        <button className="btn">Logout ToDo</button>
+                    { user ? (
+                        <button className="btn" onClick={logout}>Logout</button>                        
+                    ) :  
+                        pathname === 
+                    "/" ? (
+                     <Link to="/register" className="btn">
+                         Sign Up
+                     </Link>
+                    ) : (
+                    <Link to="/" className="btn">
+                         Login
+                     </Link>
+                
+                    )}
                     </div>
             </div>
         </div>
